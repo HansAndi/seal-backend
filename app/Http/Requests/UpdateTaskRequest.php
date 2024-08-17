@@ -24,6 +24,7 @@ class UpdateTaskRequest extends FormRequest
         return [
             'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'due_date' => 'nullable|date',
             'status' => 'nullable',
             'priority' => 'nullable',
             'project_id' => 'nullable|exists:projects,id',

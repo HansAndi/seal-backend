@@ -23,9 +23,9 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|' . Rule::unique('users')->ignore($this->user),
-            'password' => 'required|string|min:8',
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|' . Rule::unique('users')->ignore($this->user),
+            'password' => 'nullable|string|min:8',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
