@@ -37,7 +37,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->role === Role::Manager && $user->id === $model->id;
+        return $user->role === Role::Manager || $user->id === $model->id;
     }
 
     /**
@@ -45,6 +45,6 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->role === Role::Manager && $user->id === $model->id;
+        return $user->role === Role::Manager;
     }
 }
