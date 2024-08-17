@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|' . Rule::unique('users')->ignore($this->user),
+            'email' => 'nullable|email|' . Rule::unique('users')->ignore($this->email, 'email'),
             'password' => 'nullable|string|min:8',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];

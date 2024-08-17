@@ -36,9 +36,10 @@ class ProjectController extends Controller
 
         $validated = $request->validated();
 
-        $validated['image'] = $this->uploadImage($request, null, 'image', 'projects');
+        if ($request->hasFile('image')) {
+            $validated['image'] = $this->uploadImage($request, null, 'image', 'projects');
+        }
 
-        // $project = auth()->user()->projects()->create($validated);
         $project = Project::create($validated);
 
         return response()->json([
@@ -66,7 +67,9 @@ class ProjectController extends Controller
 
         $validated = $request->validated();
 
-        $validated['image'] = $this->uploadImage($request, $project->image, 'image', 'projects', true);
+        if ($request->hasFile('image')) {
+            $validated['image'] = $this->uploadImage($request, $project->image, 'image', 'projects', true);
+        }
 
         $project->update($validated);
 

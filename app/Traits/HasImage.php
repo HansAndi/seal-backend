@@ -10,14 +10,13 @@ trait HasImage
     {
         $image = null;
 
-        if ($request->hasFile($field)) {
-            if ($update) {
-                if (!empty($path) && Storage::disk('public')->exists($path)) {
-                    Storage::disk('public')->delete($path);
-                }
+        if ($update) {
+            if (!empty($path) && Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
             }
-            $image = $request->file($field)->store($folder, 'public');
         }
+        
+        $image = $request->file($field)->store($folder, 'public');
 
         return $image;
     }

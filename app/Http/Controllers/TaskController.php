@@ -46,10 +46,7 @@ class TaskController extends Controller
     {
         $task->load('user', 'project');
 
-        return response()->json([
-            'status' => true,
-            'data' => new TaskResource($task),
-        ]);
+        return new TaskResource($task);
     }
 
     /**
@@ -64,7 +61,6 @@ class TaskController extends Controller
         $task->update($validated);
 
         return response()->json([
-            'status' => true,
             'message' => 'Task updated successfully',
             'data' => new TaskResource($task),
         ]);
@@ -97,6 +93,6 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($tasks);
+        return new TaskCollection($tasks);
     }
 }

@@ -56,7 +56,9 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['avatar'] = $this->uploadImage($request, $user->avatar, 'avatar', 'users', true);
+        if ($request->hasFile('avatar')) {
+            $validated['avatar'] = $this->uploadImage($request, $user->avatar, 'avatar', 'users', true);
+        }
 
         $user->update($validated);
 
