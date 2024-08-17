@@ -36,7 +36,7 @@ class ProjectController extends Controller
 
         $validated = $request->validated();
 
-        $validated['image'] = $this->uploadImage($request, 'image', 'projects');
+        $validated['image'] = $this->uploadImage($request, null, 'image', 'projects');
 
         // $project = auth()->user()->projects()->create($validated);
         $project = Project::create($validated);
@@ -64,15 +64,11 @@ class ProjectController extends Controller
     {
         Gate::authorize('update', $project);
 
-        $validdated = $request->validated();
+        $validated = $request->validated();
 
-        if (Storage::disk('public')->exists($project->image)) {
-            Storage::disk('public')->delete($project->image);
-        }
+        $validated['image'] = $this->uploadImage($request, $project, 'image', 'projects', true);
 
-        $validate['image'] = $this->uploadImage($request, 'image', 'projects', $project->image);
-
-        $project->update($validate);
+        $project->update($validated);
 
         return response()->json([
             'message' => 'Project updated successfully',
@@ -87,7 +83,7 @@ class ProjectController extends Controller
     {
         Gate::authorize('delete', $project);
 
-        if (Storage::disk('public')->exists($project->image)) {
+        if (!empty($project->image) && Storage::disk('public')->exists($project->image)) {
             Storage::disk('public')->delete($project->image);
         }
 

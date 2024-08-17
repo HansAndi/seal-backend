@@ -30,12 +30,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validated = $request->validated();
-        // dd($validated);
 
-        // if ($request->hasFile('avatar')) {
-        //     $validated['avatar'] = $request->file('avatar')->store('users', 'public');
-        // }
-        $validated['avatar'] = $this->uploadImage($request, 'avatar', 'users');
+        $validated['avatar'] = $this->uploadImage($request, null, 'avatar', 'users');
 
         $user = User::create($validated);
 
@@ -60,15 +56,7 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['avatar'] = $this->uploadImage($request, 'avatar', 'users', true);
-
-        // if ($request->hasFile('avatar')) {
-        //     if (Storage::disk('public')->exists($user->avatar)) {
-        //         Storage::disk('public')->delete($user->avatar);
-        //     }
-
-        //     $validated['avatar'] = $request->file('avatar')->store('users', 'public');
-        // }
+        $validated['avatar'] = $this->uploadImage($request, $user, 'avatar', 'users', true);
 
         $user->update($validated);
 
@@ -83,7 +71,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if (Storage::disk('public')->exists($user->avatar)) {
+        if (!empty($user->avatar) && Storage::disk('public')->exists($user->avatar)) {
             Storage::disk('public')->delete($user->avatar);
         }
 

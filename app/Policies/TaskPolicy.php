@@ -38,7 +38,7 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-        return $user->id === Role::Manager || $user->id === $task->user_id;
+        return $user->role === Role::Manager || $user->id === $task->user_id;
     }
 
     /**

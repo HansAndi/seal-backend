@@ -24,12 +24,12 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'due_date' => 'required|date',
-            'status' => ['required', new Enum(Status::class)],
+            'due_date' => 'nullable|date',
+            'status' => ['nullable', new Enum(Status::class)],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
         ];
     }
 }
