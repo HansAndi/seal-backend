@@ -66,7 +66,7 @@ class ProjectController extends Controller
 
         $validated = $request->validated();
 
-        $validated['image'] = $this->uploadImage($request, $project, 'image', 'projects', true);
+        $validated['image'] = $this->uploadImage($request, $project->image, 'image', 'projects', true);
 
         $project->update($validated);
 

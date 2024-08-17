@@ -56,7 +56,7 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['avatar'] = $this->uploadImage($request, $user, 'avatar', 'users', true);
+        $validated['avatar'] = $this->uploadImage($request, $user->avatar, 'avatar', 'users', true);
 
         $user->update($validated);
 
