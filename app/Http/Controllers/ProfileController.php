@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-use App\Http\Requests\UpdateUserRequest;
 use App\Traits\HasImage;
 
 class ProfileController extends Controller
@@ -18,7 +18,7 @@ class ProfileController extends Controller
         return new UserResource($user);
     }
 
-    public function update(UpdateUserRequest $request)
+    public function update(UpdateProfileRequest $request)
     {
         $user = $request->user();
 
